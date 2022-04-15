@@ -68,7 +68,8 @@ export async function createScene(modelName: string, modelId: string,
   }
 
   // converting viewpoint to scene composer viewpoint
-  var index = childrenIndex[childrenIndex.length - 1];
+  var length = childrenIndex.length;
+  var index = (length == 0 ? 0 : childrenIndex[length - 1]);
   const sceneCoomposerViewPoints = [];
 
   for (var i = 1; i <= copiedViewPoints.length; i++) {
