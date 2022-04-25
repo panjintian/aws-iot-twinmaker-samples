@@ -21,6 +21,8 @@ export async function getAllMatterportMetadata() {
         name
         mattertags {
           anchorPosition {x y z}
+          stemNormal {x y z}
+          stemLength
           label
         }
 

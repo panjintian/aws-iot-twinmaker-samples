@@ -45,15 +45,22 @@ export async function createScene(modelName: string, modelId: string,
     childrenIndex.push(i);
     const mattertag = mattertags[i - tagStartindex] as any;
     const anchorPosition = mattertag["anchorPosition"] as any;
+    const stemNormal = mattertag["stemNormal"] as any;
+    const stemLength = mattertag["stemLength"] as number;
+
+    const tagPosition = [anchorPosition["x"] + stemNormal["x"] * stemLength, 
+      anchorPosition["y"] + stemNormal["y"] * stemLength,
+      anchorPosition["z"] + stemNormal["z"] * stemLength];
+      
     tags.push({
       "name": `${mattertag["label"]}`,
-      "properties": { alwaysVisible: false },
+      "properties": { alwaysVisible: false, anchorPosition: [anchorPosition["x"], anchorPosition["z"], -anchorPosition["y"]] },
       "transform":{
         // rotate the point through x axis by -90 degree
         "position":[
-          anchorPosition["x"],
-          anchorPosition["z"],
-          -anchorPosition["y"],
+          tagPosition[0],
+          tagPosition[2],
+          -tagPosition[1],
         ],
         "rotation":[0,0,0],
         "scale":[1, 1, 1]
