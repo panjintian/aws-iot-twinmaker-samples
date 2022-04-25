@@ -54,7 +54,7 @@ export async function createScene(modelName: string, modelId: string,
       
     tags.push({
       "name": `${mattertag["label"]}`,
-      "properties": { alwaysVisible: false, anchorPosition: [anchorPosition["x"], anchorPosition["z"], -anchorPosition["y"]] },
+      "properties": { alwaysVisible: false},
       "transform":{
         // rotate the point through x axis by -90 degree
         "position":[
@@ -68,7 +68,12 @@ export async function createScene(modelName: string, modelId: string,
     "transformConstraint":{
     },
     "components":[{
-        "type":"Tag"
+        "type":"Tag",
+        "anchorPosition": [
+          anchorPosition["x"],
+          anchorPosition["z"],
+          -anchorPosition["y"]
+        ]
       }
     ]
     })
