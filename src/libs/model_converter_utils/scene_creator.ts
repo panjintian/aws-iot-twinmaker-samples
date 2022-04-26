@@ -137,6 +137,7 @@ export async function createScene(modelName: string, modelId: string,
   nodes = nodes.concat(sceneCoomposerViewPoints);
   sceneTemplate["nodes"] = nodes;
   sceneTemplate["rootNodeIndexes"] = [0];
+  sceneTemplate["properties"]["matterportModelId"] = modelId;
   const sceneId = `${modelId}_scene`;
   const sceneFileName = `${sceneId}.json`;
   const sceneFileLocalPath = `${TEMP_DIR}/${sceneFileName}`
