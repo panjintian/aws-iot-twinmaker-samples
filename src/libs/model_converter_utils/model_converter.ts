@@ -88,8 +88,7 @@ async function unzip(zipFile: string, matterportData: any, parameters: Matterpor
     }
     const modelName = matterportData["data"]["model"]["name"];
 
-    createScene(modelName, parameters.modelId, parameters.workspaceId, parameters.region ? parameters.region : "us-east-1", 
-      matterportData);
+    createScene(modelName, matterportData);
   });
 }
 

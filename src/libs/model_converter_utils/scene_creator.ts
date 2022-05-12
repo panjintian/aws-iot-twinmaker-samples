@@ -6,9 +6,15 @@ import {Image, ViewPoint } from "./viewpoint"
 import * as fs from "fs";
 import { uploadToS3 } from "./s3_uploader";
 import { buildRemotePath } from "./skybox_image_remote_path";
+import { getParameters, MatterportParameters } from "./parameters_reader";
 
-export async function createScene(modelName: string, modelId: string,
-   workspace: string, region: string, matterportData: any) {
+export async function createScene(modelName: string, matterportData: any) {
+
+  const inputParameters: MatterportParameters = await getParameters();
+  const modelId = inputParameters.modelId;
+  const workspace = inputParameters.workspaceId;
+  const region = (inputParameters.region == undefined ? 'us-east-1' : inputParameters.region);
+  const sceneId = (inputParameters.sceneId == undefined ? `${modelId}_scene` : inputParameters.sceneId);
 
   // calling IotTwinMaker API to get workspace s3.
   // Sending request to create scene
@@ -138,7 +144,6 @@ export async function createScene(modelName: string, modelId: string,
   sceneTemplate["nodes"] = nodes;
   sceneTemplate["rootNodeIndexes"] = [0];
   sceneTemplate["properties"]["matterportModelId"] = modelId;
-  const sceneId = `${modelId}_scene`;
   const sceneFileName = `${sceneId}.json`;
   const sceneFileLocalPath = `${TEMP_DIR}/${sceneFileName}`
   fs.writeFileSync(sceneFileLocalPath, JSON.stringify(sceneTemplate));

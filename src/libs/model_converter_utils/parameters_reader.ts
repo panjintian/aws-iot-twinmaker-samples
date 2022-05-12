@@ -6,7 +6,8 @@ import {
   MATTERPORT_API_SECRET, 
   MATTERPORT_API_TOKEN, 
   REGION, 
-  MODEL_ID
+  MODEL_ID,
+  SCENE_ID
 } from "./const"
 
 type MatterportParameters = {
@@ -15,13 +16,15 @@ type MatterportParameters = {
   matterportApiToken: string;
   matterportApiSecret: string;
   region?: string;
+  sceneId?: string;
 }
 
 var modelId: string = "";
 var workspaceId: string = "";
 var apiToken: string = "";
 var apiSecret: string = "";
-var region: string = "";
+var region: string | undefined = undefined;
+var sceneId: string | undefined = undefined;
 
 async function getParameters(): Promise<MatterportParameters> {
   const parameters = process.argv.slice(2);
@@ -44,7 +47,8 @@ async function getParameters(): Promise<MatterportParameters> {
     modelId: modelId,
     matterportApiSecret: apiSecret,
     matterportApiToken: apiToken,
-    region: region
+    region: region,
+    sceneId: sceneId,
   }
 }
 
@@ -92,6 +96,8 @@ function setParameterValue(parameter: string, parameterValue: string) {
     apiSecret = parameterValue;
   } else if (parameter == REGION && !region) {
     region = parameterValue;
+  } else if (parameter == SCENE_ID) {
+    sceneId = parameterValue;
   }
 }
 
